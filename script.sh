@@ -1,71 +1,92 @@
-sudo dnf clean 
-sudo dnf makecache
-sudo dnf update -y
-sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+#!/usr/bin/env bash
 
-sudo dnf install -y linux-firmware
-sudo dnf install -y mesa-dri-drivers mesa-vulkan-drivers xorg-x11-drv-amdgpu
+set -e  # Прекратить выполнение при ошибке
 
-sudo dnf install -y xorg-x11-server-Xwayland
-sudo dnf install -y sway swaylock wofi waybar xdg-desktop-portal-wlr xdg-desktop-portal wl-clipboard grim slurp mako wl-clipboard flatpak easyeffects qbittorrent lollypop tmux neovim python3-neovim fzf zoxide alacritty nmcli
-sudo dnf install -y dnf-plugins-core
-sudo dnf copr enable lihaohong/yazi
-sudo dnf install -y yazi
+PROGRESS_FILE="./.install_progress"
+STEP=0
+if [ -f "$PROGRESS_FILE" ]; then
+  STEP=$(cat "$PROGRESS_FILE")
+fi
 
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+echo "=== Начинаем установку dotfiles и настройку Fedora ==="
 
-sudo dnf install -y pipewire pipewire-pulseaudio pipewire-alsa pipewire-jack-audio-connection-kit wireplumber pipewire-utils
-systemctl --user enable pipewire
-systemctl --user enable wireplumber
-systemctl --user start pipewire wireplumber
+# Подготовка
+if [ "$STEP" -lt 1 ]; then
+    echo "Обновление пакетов и подключение репозиториев..."
+    sudo dnf clean 
+    sudo dnf makecache
+    sudo dnf update -y
+    sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    sudo dnf install -y linux-firmware
+    sudo dnf install -y mesa-dri-drivers mesa-vulkan-drivers xorg-x11-drv-amdgpu
+    echo "=== Обновление и подключение прошло успешно ==="
+    echo 1 > "$PROGRESS_FILE"
+fi
 
-#Hiddify
-curl -L -o hiddify.rpm https://github.com/hiddify/hiddify-app/releases/download/v2.0.5/Hiddify-rpm-x64.rpm
-sudo dnf install -y ./hiddify.rpm
-rm -f hiddify.rpm
-
-#Onlyoffice
-curl -L -o onlyoffice.rpm https://github.com/ONLYOFFICE/DesktopEditors/releases/latest/download/onlyoffice-desktopeditors.x86_64.rpm
-sudo dnf install -y ./onlyoffice.rpm
-rm -f onlyoffice.rpm
-
-#Obsidian
-flatpak install -y flathub md.obsidian.Obsidian
-
-#Telegram
-flatpak install -y flathub org.telegram.desktop
-
-#OBS Studio
-flatpak install -y flathub com.obsproject.Studio
-
-#Foliate
-flatpak install -y flathub com.github.johnfactotum.Foliate
-
-#Virtual Machine Manager
-sudo dnf install -y @virtualization
-sudo systemctl start libvirtd
-sudo systemctl enable libvirtd
+if [ "$STEP" -lt 2 ]; then
+    echo "Установка нужных пакетов..."
+    sudo dnf install -y xorg-x11-server-Xwayland
+    sudo dnf install -y sway swaylock wofi waybar xdg-desktop-portal-wlr xdg-desktop-portal wl-clipboard grim slurp mako wl-clipboard flatpak easyeffects qbittorrent lollypop tmux neovim python3-neovim fzf zoxide alacritty nmcli
+    sudo dnf install -y dnf-plugins-core
+    sudo dnf copr enable lihaohong/yazi
+    sudo dnf install -y yazi
+    
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    
+    sudo dnf install -y pipewire pipewire-pulseaudio pipewire-alsa pipewire-jack-audio-connection-kit wireplumber pipewire-utils
+    systemctl --user enable pipewire
+    systemctl --user enable wireplumber
+    systemctl --user start pipewire wireplumber
+    
+    #Hiddify
+    curl -L -o hiddify.rpm https://github.com/hiddify/hiddify-app/releases/download/v2.0.5/Hiddify-rpm-x64.rpm
+    sudo dnf install -y ./hiddify.rpm
+    rm -f hiddify.rpm
+    
+    #Onlyoffice
+    curl -L -o onlyoffice.rpm https://github.com/ONLYOFFICE/DesktopEditors/releases/latest/download/onlyoffice-desktopeditors.x86_64.rpm
+    sudo dnf install -y ./onlyoffice.rpm
+    rm -f onlyoffice.rpm
+    
+    #Obsidian
+    flatpak install -y flathub md.obsidian.Obsidian
+    
+    #Telegram
+    flatpak install -y flathub org.telegram.desktop
+    
+    #OBS Studio
+    flatpak install -y flathub com.obsproject.Studio
+    
+    #Foliate
+    flatpak install -y flathub com.github.johnfactotum.Foliate
+    
+    #Virtual Machine Manager
+    sudo dnf install -y @virtualization
+    sudo systemctl start libvirtd
+    sudo systemctl enable libvirtd
+    echo 2 > "$PROGRESS_FILE"
+fi
 
 # Настройка bash
-if [ "$STEP" -lt 4 ]; then
+if [ "$STEP" -lt 3 ]; then
     echo "Настройка .bashrc..."
     cp -v ./bash/.bashrc ~/.bashrc
     echo "=== Bash конфиг применен ==="
-    echo 4 > "$PROGRESS_FILE"
+    echo 3 > "$PROGRESS_FILE"
 fi
 
 # Установка шрифтов
-if [ "$STEP" -lt 5 ]; then
+if [ "$STEP" -lt 4 ]; then
     echo "Установка шрифтов..."
     mkdir -p ~/.local/share/fonts
     cp -rv ./fonts/* ~/.local/share/fonts/
     fc-cache -f -v  # Обновление кэша шрифтов
     echo "=== Шрифты готовы для выбора в Tweaks ==="
-    echo 5 > "$PROGRESS_FILE"
+    echo 4 > "$PROGRESS_FILE"
 fi
 
 # Настройка alacritty и tmux
-if [ "$STEP" -lt 7 ]; then
+if [ "$STEP" -lt 5 ]; then
     echo "Настройка alacritty..."
     mkdir -p ~/.config/alacritty
     cp -rv ./alacritty/* ~/.config/alacritty/
@@ -74,11 +95,11 @@ if [ "$STEP" -lt 7 ]; then
     mkdir -p ~/.config/tmux/
     cp -rv ./tmux/* ~/.config/tmux/
     tmux source-file ~/.config/tmux/tmux.conf
-    echo 7 > "$PROGRESS_FILE"
+    echo 5 > "$PROGRESS_FILE"
 fi
 
 # Обновление GRUB
-if [ "$STEP" -lt 8 ]; then
+if [ "$STEP" -lt 6 ]; then
     echo "=== Настройка параметров GRUB... ==="
     sudo tee /etc/default/grub > /dev/null <<EOF
 GRUB_TIMEOUT=0
@@ -95,11 +116,11 @@ EOF
 # Генерируем новый конфиг grub
     sudo grub2-mkconfig -o /boot/grub2/grub.cfg
     echo "=== GRUB настроен ==="
-    echo 8 > "$PROGRESS_FILE"
+    echo 6 > "$PROGRESS_FILE"
 fi
 
 # Автостарт приложений
-if [ "$STEP" -lt 10 ]; then
+if [ "$STEP" -lt 7 ]; then
     echo "Настройка автозапуска..."
     mkdir -p ~/.config/autostart
     # EasyEffects service (фоновый режим)
@@ -130,20 +151,20 @@ StartupNotify=true
 X-GNOME-Autostart-enabled=true
 EOF
     echo "=== Приложения поставлены в автозапуск ==="
-    echo 10 > "$PROGRESS_FILE"
+    echo 7 > "$PROGRESS_FILE"
 fi
 
 # Настройка pipewire для аудиокарты
-if [ "$STEP" -lt 11 ]; then
+if [ "$STEP" -lt 8 ]; then
     echo "Настройка pipewire под аудиокарту Audient iD4 Mk2..."
     mkdir -p ~/.config/pipewire
     cp ./sound/pipewire.conf ~/.config/pipewire/pipewire.conf
     echo "=== Аудиокарта настроена ==="
-    echo 11 > "$PROGRESS_FILE"
+    echo 8 > "$PROGRESS_FILE"
 fi
 
 # Настройка firefox
-if [ "$STEP" -lt 12 ]; then
+if [ "$STEP" -lt 9 ]; then
     echo "Настройка firefox..."
     FIREFOX_PROFILE_DIR=$(awk -F= '/^\[Profile[0-9]+\]/{p=0}
                                   /^Name=default-release$/{p=1}
@@ -201,21 +222,21 @@ EOF
     else
       echo "!!! prefs.js не найден. Возможно, Firefox не запускался !!!"
     fi
-    echo 12 > "$PROGRESS_FILE"
+    echo 9 > "$PROGRESS_FILE"
 fi
 
 # Перенос картинок
-if [ "$STEP" -lt 13 ]; then
+if [ "$STEP" -lt 10 ]; then
     echo "Перенос картинок..."
     cp -r ./pics/* ~/Pictures
     echo "=== Картинки перемещены  ==="
-    echo 13 > "$PROGRESS_FILE"
+    echo 10 > "$PROGRESS_FILE"
 fi
 
 # Перенос картинок
-if [ "$STEP" -lt 13 ]; then
+if [ "$STEP" -lt 11 ]; then
     echo "Перенос картинок..."
     cp -r ./pics/* ~/Pictures
     echo "=== Картинки перемещены  ==="
-    echo 13 > "$PROGRESS_FILE"
+    echo 11 > "$PROGRESS_FILE"
 fi
