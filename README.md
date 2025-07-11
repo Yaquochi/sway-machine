@@ -7,6 +7,7 @@ https://download.fedoraproject.org/pub/fedora/linux/releases/42/Everything/x86_6
 4) ./install.sh
 
 Добавить в easyeffects конфиг с эквалайзером
+
 --------------------------------------------
 
 Далее речь пройдет про ускорение системы и автозагрузку
@@ -17,6 +18,7 @@ systemd-analyze blame | head -n 20
 
 sudo systemctl enable docker.socket #если нужен docker, но не хочется ставить в автозагрузку
 sudo systemctl enable docker.service #полная автозагрузка docker
+
 --------------------------------------------
 
 не забыть залить конфиг с sway, nvim
