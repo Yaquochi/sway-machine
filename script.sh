@@ -94,7 +94,6 @@ if [ "$STEP" -lt 5 ]; then
     echo "Настройка tmux..."
     mkdir -p ~/.config/tmux/
     cp -rv ./tmux/* ~/.config/tmux/
-    tmux source-file ~/.config/tmux/tmux.conf
     echo 5 > "$PROGRESS_FILE"
 fi
 
@@ -166,6 +165,18 @@ fi
 # Настройка firefox
 if [ "$STEP" -lt 9 ]; then
     echo "Настройка firefox..."
+
+    # Запускаем Firefox в фоне (без UI, с флагом no-remote и профилем по умолчанию)
+    firefox --headless &
+    FIREFOX_PID=$!
+
+    # Ждём несколько секунд, чтобы профиль создался
+    sleep 10
+
+    # Завершаем Firefox
+    kill $FIREFOX_PID
+    wait $FIREFOX_PID 2>/dev/null || true
+
     FIREFOX_PROFILE_DIR=$(awk -F= '/^\[Profile[0-9]+\]/{p=0}
                                   /^Name=default-release$/{p=1}
                                   p && /^Path=/{print $2; exit}' ~/.mozilla/firefox/profiles.ini)
@@ -232,3 +243,8 @@ if [ "$STEP" -lt 10 ]; then
     echo "=== Картинки перемещены  ==="
     echo 10 > "$PROGRESS_FILE"
 fi
+
+echo "Установка завершена. Перезагружаем систему через 10 секунд..."
+echo "Для отмены нажмите Ctrl+C"
+sleep 10
+sudo systemctl reboot
