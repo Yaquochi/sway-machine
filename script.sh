@@ -25,13 +25,15 @@ fi
 
 if [ "$STEP" -lt 2 ]; then
     echo "Установка нужных пакетов..."
+    mkdir -p ~/Downloads ~/Documents ~/Pictures ~/Videos ~/Music
     sudo dnf install -y xorg-x11-server-Xwayland
     sudo dnf install -y sway swaylock wofi waybar xdg-desktop-portal-wlr xdg-desktop-portal wl-clipboard grim slurp mako flatpak easyeffects qbittorrent lollypop tmux neovim python3-neovim fzf zoxide alacritty nmcli firefox
     sudo dnf install -y dnf-plugins-core
     sudo dnf copr enable lihaohong/yazi
     sudo dnf install -y yazi
     
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak update --user
     
     sudo dnf install -y pipewire pipewire-pulseaudio pipewire-alsa pipewire-jack-audio-connection-kit wireplumber pipewire-utils
     systemctl --user enable pipewire
@@ -49,16 +51,16 @@ if [ "$STEP" -lt 2 ]; then
     rm -f onlyoffice.rpm
     
     #Obsidian
-    flatpak install -y flathub md.obsidian.Obsidian
+    flatpak install --user -y flathub md.obsidian.Obsidian
     
     #Telegram
-    flatpak install -y flathub org.telegram.desktop
+    flatpak install --user -y flathub org.telegram.desktop
     
     #OBS Studio
-    flatpak install -y flathub com.obsproject.Studio
+    flatpak install --user -y flathub com.obsproject.Studio
     
     #Foliate
-    flatpak install -y flathub com.github.johnfactotum.Foliate
+    flatpak install --user -y flathub com.github.johnfactotum.Foliate
     
     #Virtual Machine Manager
     sudo dnf install -y @virtualization
