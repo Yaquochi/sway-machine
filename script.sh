@@ -232,11 +232,3 @@ if [ "$STEP" -lt 10 ]; then
     echo "=== Картинки перемещены  ==="
     echo 10 > "$PROGRESS_FILE"
 fi
-
-# Перенос картинок
-if [ "$STEP" -lt 11 ]; then
-    echo "Перенос картинок..."
-    cp -r ./pics/* ~/Pictures
-    echo "=== Картинки перемещены  ==="
-    echo 11 > "$PROGRESS_FILE"
-fi
