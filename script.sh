@@ -246,6 +246,16 @@ if [ "$STEP" -lt 10 ]; then
     echo 10 > "$PROGRESS_FILE"
 fi
 
+# Настройка Sway
+if [ "$STEP" -lt 11 ]; then
+    echo "Настройка Sway..."
+    mkdir -p ~/.config/sway
+    cp -r ./sway/* ~/sway/
+    echo "=== Sway настроен  ==="
+    echo 11 > "$PROGRESS_FILE"
+fi
+
+
 echo "Установка завершена. Перезагружаем систему через 10 секунд..."
 echo "Для отмены нажмите Ctrl+C"
 sleep 10
