@@ -1,0 +1,58 @@
+[terminal.shell]
+program = "/usr/bin/bash"
+args = []
+
+[font]
+normal.family = "RobotoMono Nerd Font Mono"
+bold.family = "RobotoMono Nerd Font Mono"
+italic.family = "RobotoMono Nerd Font Mono"
+bold_italic.family = "RobotoMono Nerd Font Mono"
+size = 14.0
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding.x = 10
+padding.y = 10
+decorations = "Buttonless"
+
+[colors.bright]
+black = "#100F0F"
+blue = "#4385BE"
+cyan = "#3AA99F"
+green = "#879A39"
+magenta = "#CE5D97"
+red = "#D14D41"
+white = "#FFFCF0"
+yellow = "#D0A215"
+
+[colors.cursor]
+cursor = "#100F0F"
+text = "#FFFCF0"
+
+[colors.dim]
+black = "#100F0F"
+blue = "#4385BE"
+cyan = "#3AA99F"
+green = "#879A39"
+magenta = "#CE5D97"
+red = "#D14D41"
+white = "#FFFCF0"
+yellow = "#D0A215"
+
+[colors.normal]
+black = "#100F0F"
+blue = "#4385BE"
+cyan = "#3AA99F"
+green = "#879A39"
+magenta = "#CE5D97"
+red = "#D14D41"
+white = "#FFFCF0"
+yellow = "#D0A215"
+
+[colors.primary]
+background = "#FFFCF0"
+bright_foreground = "#100F0F"
+dim_foreground = "#100F0F"
+foreground = "#100F0F"
