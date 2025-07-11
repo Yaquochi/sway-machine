@@ -26,7 +26,7 @@ fi
 if [ "$STEP" -lt 2 ]; then
     echo "Установка нужных пакетов..."
     sudo dnf install -y xorg-x11-server-Xwayland
-    sudo dnf install -y sway swaylock wofi waybar xdg-desktop-portal-wlr xdg-desktop-portal wl-clipboard grim slurp mako flatpak easyeffects qbittorrent lollypop tmux neovim python3-neovim fzf zoxide alacritty nmcli
+    sudo dnf install -y sway swaylock wofi waybar xdg-desktop-portal-wlr xdg-desktop-portal wl-clipboard grim slurp mako flatpak easyeffects qbittorrent lollypop tmux neovim python3-neovim fzf zoxide alacritty nmcli firefox
     sudo dnf install -y dnf-plugins-core
     sudo dnf copr enable lihaohong/yazi
     sudo dnf install -y yazi
