@@ -254,7 +254,8 @@ if [ "$STEP" -lt 11 ]; then
     sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     sudo dnf install -y podman
     echo "=== Docker и podamn настроены  ==="
-    echo 11 > "$PROGRESS_FILE"                                               fi
+    echo 11 > "$PROGRESS_FILE"
+fi
 
 # Настройка Sway
 if [ "$STEP" -lt 12 ]; then
