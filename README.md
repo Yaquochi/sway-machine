@@ -9,6 +9,8 @@ https://download.fedoraproject.org/pub/fedora/linux/releases/42/Everything/x86_6
 
 Добавить в easyeffects конфиг с эквалайзером
 
+Если нужен docker или podman, можно включить через sudo systemctl start dockre/podman
+
 --------------------------------------------
 
 Далее речь пройдет про ускорение системы и автозагрузку
@@ -23,4 +25,3 @@ sudo systemctl enable docker.service #полная автозагрузка dock
 --------------------------------------------
 
 не забыть залить конфиг с sway, nvim
-добавить в скрит docker и podman

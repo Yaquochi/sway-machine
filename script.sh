@@ -247,13 +247,23 @@ if [ "$STEP" -lt 10 ]; then
     echo 10 > "$PROGRESS_FILE"
 fi
 
-# Настройка Sway
+# Настройка docker + podman
 if [ "$STEP" -lt 11 ]; then
+    echo "Настройка docker + podman..."
+    sudo dnf -y install dnf-plugins-core
+    sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+    sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    sudo dnf install -y podman
+    echo "=== Docker и podamn настроены  ==="
+    echo 11 > "$PROGRESS_FILE"                                               fi
+
+# Настройка Sway
+if [ "$STEP" -lt 12 ]; then
     echo "Настройка Sway..."
     mkdir -p ~/.config/sway
     cp -r ./sway/* ~/sway/
     echo "=== Sway настроен  ==="
-    echo 11 > "$PROGRESS_FILE"
+    echo 12 > "$PROGRESS_FILE"
 fi
 
 
