@@ -7,6 +7,7 @@ https://download.fedoraproject.org/pub/fedora/linux/releases/42/Everything/x86_6
 3) sudo chmod +x install.sh
 4) ./install.sh
 
+После входа в сессию sway выполнить:
 xdg-user-dirs-update --force
 cp -r ~/sway-machine/pics/* ~/Pictures
 
