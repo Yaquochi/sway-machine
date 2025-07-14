@@ -27,7 +27,6 @@ if [ "$STEP" -lt 2 ]; then
     echo "Установка нужных пакетов..."
     sudo dnf install -y xorg-x11-server-Xwayland
     sudo dnf install -y xdg-desktop-portal xdg-desktop-portal-gtk xdg-user-dirs
-    xdg-user-dirs-update --force
     sudo dnf install -y sway swaylock wofi waybar xdg-desktop-portal-wlr xdg-desktop-portal wl-clipboard grim slurp mako flatpak easyeffects qbittorrent lollypop tmux neovim python3-neovim fzf zoxide alacritty nmcli htop firefox polkit lxqt-policykit
     sudo dnf install -y dnf-plugins-core
     sudo dnf copr enable lihaohong/yazi
@@ -239,31 +238,23 @@ EOF
     echo 9 > "$PROGRESS_FILE"
 fi
 
-# Перенос картинок
-if [ "$STEP" -lt 10 ]; then
-    echo "Перенос картинок..."
-    cp -r ./pics/* ~/Pictures
-    echo "=== Картинки перемещены  ==="
-    echo 10 > "$PROGRESS_FILE"
-fi
-
 # Настройка docker + podman
-if [ "$STEP" -lt 11 ]; then
+if [ "$STEP" -lt 10 ]; then
     echo "Настройка docker + podman..."
     sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
     sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     sudo dnf install -y podman
     echo "=== Docker и podamn настроены  ==="
-    echo 11 > "$PROGRESS_FILE"
+    echo 10 > "$PROGRESS_FILE"
 fi
 
 # Настройка Sway
-if [ "$STEP" -lt 12 ]; then
+if [ "$STEP" -lt 11 ]; then
     echo "Настройка Sway..."
     mkdir -p ~/.config/sway
     cp -r ./sway/* ~/.config/sway/
     echo "=== Sway настроен  ==="
-    echo 12 > "$PROGRESS_FILE"
+    echo 11 > "$PROGRESS_FILE"
 fi
 
 

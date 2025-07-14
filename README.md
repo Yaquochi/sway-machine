@@ -7,6 +7,9 @@ https://download.fedoraproject.org/pub/fedora/linux/releases/42/Everything/x86_6
 3) sudo chmod +x install.sh
 4) ./install.sh
 
+xdg-user-dirs-update --force
+cp -r ~/sway-machine/pics/* ~/Pictures
+
 Добавить в easyeffects конфиг с эквалайзером
 
 Если нужен docker или podman, можно включить через sudo systemctl start dockre/podman
