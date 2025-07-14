@@ -24,6 +24,10 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+  exec sway
+fi
+
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 
 export PATH=$PATH:/usr/local/go/bin
