@@ -261,7 +261,7 @@ fi
 if [ "$STEP" -lt 12 ]; then
     echo "Настройка Sway..."
     mkdir -p ~/.config/sway
-    cp -r ./sway/* ~/.configesway/
+    cp -r ./sway/* ~/.config/sway/
     echo "=== Sway настроен  ==="
     echo 12 > "$PROGRESS_FILE"
 fi
