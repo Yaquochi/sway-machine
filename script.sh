@@ -50,6 +50,8 @@ if [ "$STEP" -lt 3 ]; then
     git clone https://github.com/helix-editor/helix
     cd helix
     cargo install --path helix-term --locked
+    cd ~/sway-machine
+    cp -v ./helix/* ~/.config/helix
     
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak update --user
