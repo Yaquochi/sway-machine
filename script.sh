@@ -23,16 +23,32 @@ if [ "$STEP" -lt 1 ]; then
     echo 1 > "$PROGRESS_FILE"
 fi
 
+# Настройка bash
 if [ "$STEP" -lt 2 ]; then
+    echo "Настройка .bashrc..."
+    cp -v ./bash/.bashrc ~/.bashrc
+    echo "=== Bash конфиг применен ==="
+    echo 2 > "$PROGRESS_FILE"
+fi
+
+if [ "$STEP" -lt 3 ]; then
     echo "Установка нужных пакетов..."
     sudo dnf install -y xorg-x11-server-Xwayland
     sudo dnf install -y xdg-desktop-portal xdg-desktop-portal-gtk xdg-user-dirs
-    sudo dnf install -y sway swaylock wofi waybar xdg-desktop-portal-wlr xdg-desktop-portal wl-clipboard grim slurp mako flatpak easyeffects qbittorrent lollypop tmux neovim python3-neovim ripgrep fzf zoxide alacritty nmcli htop firefox polkit lxqt-policykit
+    sudo dnf install -y sway swaylock wofi waybar xdg-desktop-portal-wlr xdg-desktop-portal wl-clipboard grim slurp mako \
+    flatpak easyeffects qbittorrent lollypop \
+    tmux ripgrep fzf zoxide alacritty nmcli htop firefox polkit lxqt-policykit
     sudo dnf install -y dnf-plugins-core
     sudo dnf copr enable lihaohong/yazi -y
     sudo dnf install -y yazi
     sudo dnf copr enable atim/lazygit -y
     sudo dnf install -y lazygit
+
+    mkdir -p ~/src
+    cd ~/src
+    git clone https://github.com/helix-editor/helix
+    cd helix
+    cargo install --path helix-term --locked
     
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak update --user
@@ -68,14 +84,6 @@ if [ "$STEP" -lt 2 ]; then
     sudo dnf install -y @virtualization
     sudo systemctl start libvirtd
     sudo systemctl enable libvirtd
-    echo 2 > "$PROGRESS_FILE"
-fi
-
-# Настройка bash
-if [ "$STEP" -lt 3 ]; then
-    echo "Настройка .bashrc..."
-    cp -v ./bash/.bashrc ~/.bashrc
-    echo "=== Bash конфиг применен ==="
     echo 3 > "$PROGRESS_FILE"
 fi
 

@@ -24,14 +24,12 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-  exec sway
-fi
-
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:~/go/bin
+export PATH="$HOME/.cargo/bin:$PATH"
+export HELIX_RUNTIME=~/src/helix/runtime
 
 export TERM=xterm-256color
 export VISUAL=vi
