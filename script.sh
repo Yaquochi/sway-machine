@@ -27,6 +27,7 @@ fi
 if [ "$STEP" -lt 2 ]; then
     echo "Настройка .bashrc..."
     cp -v ./bash/.bashrc ~/.bashrc
+    source ~/.bashrc
     echo "=== Bash конфиг применен ==="
     echo 2 > "$PROGRESS_FILE"
 fi
