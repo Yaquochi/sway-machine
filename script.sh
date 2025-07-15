@@ -27,10 +27,12 @@ if [ "$STEP" -lt 2 ]; then
     echo "Установка нужных пакетов..."
     sudo dnf install -y xorg-x11-server-Xwayland
     sudo dnf install -y xdg-desktop-portal xdg-desktop-portal-gtk xdg-user-dirs
-    sudo dnf install -y sway swaylock wofi waybar xdg-desktop-portal-wlr xdg-desktop-portal wl-clipboard grim slurp mako flatpak easyeffects qbittorrent lollypop tmux neovim python3-neovim fzf zoxide alacritty nmcli htop firefox polkit lxqt-policykit
+    sudo dnf install -y sway swaylock wofi waybar xdg-desktop-portal-wlr xdg-desktop-portal wl-clipboard grim slurp mako flatpak easyeffects qbittorrent lollypop tmux neovim python3-neovim ripgrep fzf zoxide alacritty nmcli htop firefox polkit lxqt-policykit
     sudo dnf install -y dnf-plugins-core
-    sudo dnf copr enable lihaohong/yazi
+    sudo dnf copr enable lihaohong/yazi -y
     sudo dnf install -y yazi
+    sudo dnf copr enable atim/lazygit -y
+    sudo dnf install -y lazygit
     
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak update --user
