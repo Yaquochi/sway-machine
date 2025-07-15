@@ -1,7 +1,26 @@
 [editor]
 bufferline = "always"
 auto-format = true
+auto-completion = true
+path-completion = true
 line-number = "relative"
+cursorline = true
+color-modes = true
+
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["file-name"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.lsp]
+enable = true
+
+[keys.normal.space]
+e = [":sh tmux new-window -n fx ~/.config/helix/yazi-picker.sh open"]
 
 [keys.select]
 y = [":clipboard-yank", "yank"]

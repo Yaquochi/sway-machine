@@ -52,7 +52,8 @@ if [ "$STEP" -lt 3 ]; then
     export HELIX_RUNTIME="$HOME/src/helix/runtime"
     cargo install --path helix-term --locked
     cd ~/sway-machine
-    cp -v ./helix/* ~/.config/helix
+    cp -rv ./helix/* ~/.config/helix
+    chmod +x yazi-picker.sh
     
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak update --user
