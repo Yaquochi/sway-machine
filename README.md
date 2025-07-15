@@ -28,4 +28,3 @@ sudo systemctl enable docker.service #полная автозагрузка dock
 
 --------------------------------------------
 
-не забыть залить конфиг с sway, nvim

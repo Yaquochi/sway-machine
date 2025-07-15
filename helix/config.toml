@@ -1,0 +1,7 @@
+[editor]
+bufferline = "always"
+auto-format = true
+line-number = "relative"
+
+[keys.select]
+y = [":clipboard-yank", "yank"]
