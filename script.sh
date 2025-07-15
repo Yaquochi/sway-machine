@@ -27,7 +27,6 @@ fi
 if [ "$STEP" -lt 2 ]; then
     echo "Настройка .bashrc..."
     cp -v ./bash/.bashrc ~/.bashrc
-    source ~/.bashrc
     echo "=== Bash конфиг применен ==="
     echo 2 > "$PROGRESS_FILE"
 fi
@@ -49,6 +48,8 @@ if [ "$STEP" -lt 3 ]; then
     cd ~/src
     git clone https://github.com/helix-editor/helix
     cd helix
+    export PATH="$HOME/.cargo/bin:$PATH"
+    export HELIX_RUNTIME="$HOME/src/helix/runtime"
     cargo install --path helix-term --locked
     cd ~/sway-machine
     cp -v ./helix/* ~/.config/helix
