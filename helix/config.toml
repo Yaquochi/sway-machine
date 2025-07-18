@@ -1,3 +1,5 @@
+theme = "catppuccin_mocha"
+
 [editor]
 bufferline = "always"
 auto-format = true
@@ -6,6 +8,7 @@ path-completion = true
 line-number = "relative"
 cursorline = true
 color-modes = true
+true-color = true
 
 [editor.statusline]
 left = ["mode", "spinner"]
