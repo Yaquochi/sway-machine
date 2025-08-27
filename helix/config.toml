@@ -27,3 +27,7 @@ e = [":sh tmux new-window -n fx ~/.config/helix/yazi-picker.sh open"]
 
 [keys.select]
 y = [":clipboard-yank", "yank"]
+
+[editor.indent-guides]
+render = true
+character = "▏" 
