@@ -22,6 +22,9 @@ mode.select = "SELECT"
 [editor.lsp]
 enable = true
 
+[editor.soft-wrap]
+enable = true
+
 [keys.normal.space]
 e = [":sh tmux new-window -n fx ~/.config/helix/yazi-picker.sh open"]
 
