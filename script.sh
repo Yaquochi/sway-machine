@@ -42,7 +42,6 @@ if [ "$STEP" -lt 3 ]; then
     sudo dnf install -y dnf-plugins-core
     sudo dnf copr enable lihaohong/yazi -y
     sudo dnf install -y yazi
-
     cp -rv ./helix/* ~/.config/helix
     chmod +x ./helix/yazi-picker.sh
     
@@ -247,8 +246,13 @@ fi
 # Настройка docker + podman
 if [ "$STEP" -lt 10 ]; then
     echo "Настройка docker + podman..."
+    sudo dnf -y install dnf-plugins-core
     sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-    sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    sudo systemctl enable --now docker
+    sudo groupadd docker
+    sudo usermod -aG docker $USER
+    newgrp docker
     sudo dnf install -y podman
     echo "=== Docker и podamn настроены  ==="
     echo 10 > "$PROGRESS_FILE"
