@@ -37,23 +37,14 @@ if [ "$STEP" -lt 3 ]; then
     sudo dnf install -y xdg-desktop-portal xdg-desktop-portal-gtk xdg-user-dirs
     sudo dnf install -y sway swaylock wofi waybar xdg-desktop-portal-wlr xdg-desktop-portal wl-clipboard grim slurp mako \
     flatpak easyeffects qbittorrent lollypop \
-    tmux ripgrep fzf zoxide alacritty nmcli htop firefox polkit lxqt-policykit
+    nmcli htop firefox polkit lxqt-policykit \
+    helix tmux ripgrep fzf zoxide alacritty 
     sudo dnf install -y dnf-plugins-core
     sudo dnf copr enable lihaohong/yazi -y
     sudo dnf install -y yazi
-    sudo dnf copr enable atim/lazygit -y
-    sudo dnf install -y lazygit
 
-    mkdir -p ~/src
-    cd ~/src
-    git clone https://github.com/helix-editor/helix
-    cd helix
-    export PATH="$HOME/.cargo/bin:$PATH"
-    export HELIX_RUNTIME="$HOME/src/helix/runtime"
-    cargo install --path helix-term --locked
-    cd ~/sway-machine
     cp -rv ./helix/* ~/.config/helix
-    chmod +x yazi-picker.sh
+    chmod +x ./helix/yazi-picker.sh
     
     flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak update --user
