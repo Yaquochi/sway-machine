@@ -25,17 +25,16 @@ fi
 unset rc
 
 export LIBVIRT_DEFAULT_URI='qemu:///system'
-
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:~/go/bin
-export PATH="$HOME/.cargo/bin:$PATH"
-
 export TERM=xterm-256color
-export VISUAL=hx
-export EDITOR=hx
-export SUDO_EDITOR=hx
-export GIT_EDITOR=hx
-export SYSTEMD_EDITOR=hx
+export VISUAL=vim
+export EDITOR=vim
+export SUDO_EDITOR=vim
+export GIT_EDITOR=vim
+export SYSTEMD_EDITOR=vim
 
-eval "$(zoxide init bash)"
-eval "$(fzf --bash)"
+alias k-demo='export KUBECONFIG=~/.kube/config_demo && echo "Demo"'
+alias k-lanit='export KUBECONFIG=~/.kube/config_lanit && echo "Test&Dev&DKS"'
+alias k-presale='export KUBECONFIG=~/.kube/config_presale && echo "Presale"'
+alias k-status='echo "Текущий KUBECONFIG: $KUBECONFIG" && kubectl config current-context 2>/dev/null'
+
+export K9S_FEATURE_GATE_NODE_SHELL=true

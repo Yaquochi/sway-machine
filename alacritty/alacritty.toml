@@ -1,6 +1,6 @@
 [terminal.shell]
 program = "/usr/bin/bash"
-args = []
+args = ["-lc", "tmux attach -t main || tmux new -s main"]
 
 [font]
 normal.family = "RobotoMono Nerd Font Mono"
